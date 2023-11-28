@@ -16,4 +16,7 @@ public class KasirService {
 		kasirRepository.save(kasirRequest);
 	}
 
+	public List<Kasir> getAllKasir(){
+		return kasirRepository.findAll();
+	}
 }

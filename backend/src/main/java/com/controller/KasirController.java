@@ -27,4 +27,9 @@ public class KasirController {
         kasirService.addKasir(kasirRequest);
 		return ResponseEntity.ok("Kasir dengan nama " +nama+ " berhasil ditambahkan");
 	}
+
+	@GetMapping("/kasir")
+	public List<Kasir> getAllKasir(){
+		return kasirService.getAllKasir();
+	}
 }
