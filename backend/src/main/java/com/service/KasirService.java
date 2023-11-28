@@ -19,4 +19,12 @@ public class KasirService {
 	public List<Kasir> getAllKasir(){
 		return kasirRepository.findAll();
 	}
+
+	public Kasir getKasirByKode(String kode_kasir) {
+		return kasirRepository.getById(kode_kasir);
+	}
+
+	public void updateKasir(Kasir kasirRequest) {
+		kasirRepository.save(kasirRequest);
+	}
 }

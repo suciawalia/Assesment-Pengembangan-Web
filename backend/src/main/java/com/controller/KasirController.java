@@ -32,4 +32,11 @@ public class KasirController {
 	public List<Kasir> getAllKasir(){
 		return kasirService.getAllKasir();
 	}
+	@PostMapping("/kasir/update")
+	public ResponseEntity<String> updateKasir(@RequestBody Kasir kasirRequest){
+		String nama = kasirService.getKasirByKode(kasirRequest.getKode_kasir()).getNama();
+		kasirService.updateKasir(kasirRequest);
+		return ResponseEntity.ok("Kasir dengan nama " + nama + " berhasil diupdate");
+	}
+
 }
