@@ -15,13 +15,17 @@ const UserList = () => {
   }
 
   const deleteKasir = async (kode) => {
-    try {
-      await axios.delete(`http://localhost:8082/kasir/delete?kode_kasir=${kode}`);
-      getAllKasir();
-    } catch (error) {
-      console.log(error);
+    const confirmDelete = window.confirm("Are you sure you want to delete this Kasir?");
+    
+    if (confirmDelete) {
+      try {
+        await axios.delete(`http://localhost:8082/kasir/delete?kode_kasir=${kode}`);
+        getAllKasir();
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }
+  }  
 
   return (
     <div className="columns mt-5 is-centered">
