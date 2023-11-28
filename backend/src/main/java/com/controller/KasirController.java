@@ -7,7 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +18,7 @@ import com.service.KasirService;
 import com.model.Kasir;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 public class KasirController {
 	@Autowired
 	KasirService kasirService;
@@ -32,6 +34,17 @@ public class KasirController {
 	public List<Kasir> getAllKasir(){
 		return kasirService.getAllKasir();
 	}
+
+	@GetMapping("/kasir/{kode_kasir}")
+    public ResponseEntity<Kasir> getKasirByKode(@PathVariable String kode_kasir) {
+        Kasir kasir = kasirService.getKasirByKode(kode_kasir);
+        if (kasir != null) {
+            return ResponseEntity.ok(kasir);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 	@PostMapping("/kasir/update")
 	public ResponseEntity<String> updateKasir(@RequestBody Kasir kasirRequest){
 		String nama = kasirService.getKasirByKode(kasirRequest.getKode_kasir()).getNama();
@@ -45,4 +58,10 @@ public class KasirController {
 		return ResponseEntity.ok("Kasir dengan nama " + nama + " berhasil dihapus");
 	}
 
+	@PutMapping("/kasir/update/{kode_kasir}")
+    public ResponseEntity<String> updateKasirByKode(@PathVariable String kode_kasir, @RequestBody Kasir kasirRequest) {
+        String nama = kasirService.getKasirByKode(kode_kasir).getNama();
+        kasirService.updateKasirByKode(kode_kasir, kasirRequest);
+        return ResponseEntity.ok("Kasir dengan kode " + kode_kasir + " dan nama " + nama + " berhasil diupdate");
+    }
 }
