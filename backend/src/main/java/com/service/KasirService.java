@@ -27,4 +27,9 @@ public class KasirService {
 	public void updateKasir(Kasir kasirRequest) {
 		kasirRepository.save(kasirRequest);
 	}
+
+	public void deleteKasir(String kode_kasir) {
+		kasirRepository.deleteById(kode_kasir);
+	}
+
 }
